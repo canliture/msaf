@@ -1,9 +1,9 @@
 # MSAF: A Modular Static Analysis Framework
 
 ## 1. Design
-Here is a static analysis framework for bug finding.
+Here is a static analysis framework for bug finding.Its features:
 - Modular.
-  - It's a modular static framework, means it's not a whole program analysis framework. It follows a bottom-up and summary-based paradigm.
+  - It's a modular static analysis framework, means it's not a whole program analysis framework. It follows a bottom-up and summary-based modular analysis paradigm.
 - Extensible
   - All checker builds on the extensible framework.
   - It supports several checkers, such as Use of Uninitialized Variable (UUV or UBI), buffer overflow.

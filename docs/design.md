@@ -1,6 +1,6 @@
 ## 1. Workflow
 - Schedule Framework
-- Runner Framework
+- Abstract Interpretation Framework
   - Abstract Domain
   - Transfer Function
   - Merge Operator
