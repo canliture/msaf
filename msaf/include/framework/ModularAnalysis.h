@@ -32,17 +32,17 @@ protected:
     virtual void afterProcessStmt(const SVFStmt *stmt);
 
     ///> process all other kinds of statements
-    virtual void processAddr(const AddrStmt *addrStmt);
-    virtual void processCopy(const CopyStmt *copyStmt);
-    virtual void processStore(const StoreStmt *storeStmt);
-    virtual void processLoad(const LoadStmt *loadStmt);
-    virtual void processGep(const GepStmt *gepStmt);
-    virtual void processPhi(const PhiStmt *phiStmt);
-    virtual void processSelect(const SelectStmt *selectStmt);
-    virtual void processCmp(const CmpStmt *cmpStmt);
-    virtual void processBinaryOP(const BinaryOPStmt *binOPStmt);
-    virtual void processUnaryOP(const UnaryOPStmt *unaryOPStmt);
-    virtual void processBranch(const BranchStmt *branchStmt);
+    virtual void processAddr(const AddrStmt *addrStmt) = 0;
+    virtual void processCopy(const CopyStmt *copyStmt) = 0;
+    virtual void processStore(const StoreStmt *storeStmt) = 0;
+    virtual void processLoad(const LoadStmt *loadStmt) = 0;
+    virtual void processGep(const GepStmt *gepStmt) = 0;
+    virtual void processPhi(const PhiStmt *phiStmt) = 0;
+    virtual void processSelect(const SelectStmt *selectStmt) = 0;
+    virtual void processCmp(const CmpStmt *cmpStmt) = 0;
+    virtual void processBinaryOP(const BinaryOPStmt *binOPStmt) = 0;
+    virtual void processUnaryOP(const UnaryOPStmt *unaryOPStmt) = 0;
+    virtual void processBranch(const BranchStmt *branchStmt) = 0;
 
     ///> process call
     virtual void processCall(const CallICFGNode *call);
