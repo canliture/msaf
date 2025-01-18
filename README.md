@@ -1,5 +1,8 @@
 # MSAF: A Modular Static Analysis Framework
 
+## Status
+Working in Progress.
+
 ## 1. Design
 Here is a static analysis framework for bug finding.Its features:
 - Modular.
