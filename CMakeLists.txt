@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.30)
 project(MSAF
         VERSION 1.0
         DESCRIPTION "MSAF: A Modular Static Analysis Framework"
-        HOMEPAGE_URL "https://github.com/canliture"
+        HOMEPAGE_URL "https://github.com/canliture/msaf"
         LANGUAGES C CXX
 )
 # Check if the LLVM_DIR environment variable is defined and set it accordingly
@@ -181,6 +181,7 @@ set(MSAF_INSTALL_LIB_DIR ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR})
 set(MSAF_INSTALL_INCLUDE_DIR ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_INCLUDEDIR})
 
 # Add the Z3 include directory and link the Z3 library to all targets
+set(CMAKE_INSTALL_RPATH ${Z3_INCLUDES})
 link_libraries(${Z3_LIBRARIES})
 include_directories(SYSTEM ${Z3_INCLUDES})
 add_subdirectory(msaf)

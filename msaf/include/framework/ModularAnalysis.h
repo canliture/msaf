@@ -12,9 +12,9 @@ using namespace SVF;
 class ModularAnalysis {
 
 public:
-    ModularAnalysis(const SVFFunction *curFun);
+    ModularAnalysis(const SVFFunction *curFun) { }
 
-    ~ModularAnalysis();
+    ~ModularAnalysis() {  }
 
     void run();
 
@@ -45,7 +45,7 @@ protected:
     virtual void processBranch(const BranchStmt *branchStmt) = 0;
 
     ///> process call
-    virtual void processCall(const CallICFGNode *call);
+    virtual void processCall(const CallICFGNode *call) = 0;
 private:
     ///> current function analyzed
     const SVFFunction *curFun;

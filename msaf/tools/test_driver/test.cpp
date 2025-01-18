@@ -5,12 +5,12 @@
 #include <cstdio>
 #include <vector>
 
-
 #include "framework/ModularAnalysis.h"
 #include "Util/CommandLine.h"
 #include "Util/Options.h"
 #include "SVF-LLVM/SVFIRBuilder.h"
 #include "WPA/Andersen.h"
+#include "Graphs/VFG.h"
 
 using namespace SVF;
 
@@ -26,29 +26,29 @@ class MyAnalysis : public ModularAnalysis {
     }
 
 protected:
-    void processAddr(const AddrStmt *addrStmt) override;
+    void processAddr(const AddrStmt *addrStmt) override {  }
 
-    void processCopy(const CopyStmt *copyStmt) override;
+    void processCopy(const CopyStmt *copyStmt) override {  }
 
-    void processStore(const StoreStmt *storeStmt) override;
+    void processStore(const StoreStmt *storeStmt) override {  }
 
-    void processLoad(const LoadStmt *loadStmt) override;
+    void processLoad(const LoadStmt *loadStmt) override {  }
 
-    void processGep(const GepStmt *gepStmt) override;
+    void processGep(const GepStmt *gepStmt) override {  }
 
-    void processPhi(const PhiStmt *phiStmt) override;
+    void processPhi(const PhiStmt *phiStmt) override { }
 
-    void processSelect(const SelectStmt *selectStmt) override;
+    void processSelect(const SelectStmt *selectStmt) override {  }
 
-    void processCmp(const CmpStmt *cmpStmt) override;
+    void processCmp(const CmpStmt *cmpStmt) override {  }
 
-    void processBinaryOP(const BinaryOPStmt *binOPStmt) override;
+    void processBinaryOP(const BinaryOPStmt *binOPStmt) override {  }
 
-    void processUnaryOP(const UnaryOPStmt *unaryOPStmt) override;
+    void processUnaryOP(const UnaryOPStmt *unaryOPStmt) override {  }
 
-    void processBranch(const BranchStmt *branchStmt) override;
+    void processBranch(const BranchStmt *branchStmt) override {  }
 
-    void processCall(const CallICFGNode *call) override;
+    void processCall(const CallICFGNode *call) override {  }
 };
 
 int main(int argc, char **argv)
@@ -86,6 +86,6 @@ int main(int argc, char **argv)
     SVFGBuilder svfBuilder;
     SVFG* svfg = svfBuilder.buildFullSVFG(ander);
 
-    MyAnalysis modular_analysis();
+    MyAnalysis modular_analysis;
     printf("Hello World\n");
 }

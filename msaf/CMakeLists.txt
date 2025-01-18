@@ -14,11 +14,14 @@ set_target_properties(MSAFCore PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib
 )
 
-# Get the source files (i.e. all *.c/*.cpp files) for SVF's subprojects and add them to SvfCore
+# Link LLVM's libraries to MSAFCore, as well as the SVF_LIB library
+target_link_libraries(MSAFCore PUBLIC ${llvm_libs} ${SVF_LIB})
+
+# Get the source files (i.e. all *.c/*.cpp files) for subprojects and add them to MSAFCore
 file(GLOB_RECURSE MSAF_CORE_SOURCES lib/*.cpp)
 target_sources(MSAFCore PRIVATE ${MSAF_CORE_SOURCES})
 
-# Get all of the public header files (i.e. all *.h/*.hpp files) for SVF's subprojects and add them
+# Get all of the public header files (i.e. all *.h/*.hpp files) for subprojects and add them
 file(GLOB_RECURSE MSAF_CORE_HEADERS include/*.h include/*.hpp)
 
 target_sources(MSAFCore
@@ -27,6 +30,8 @@ target_sources(MSAFCore
         BASE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/include
         FILES ${MSAF_CORE_HEADERS}
 )
+
+add_subdirectory(tools)
 
 # Install the headers and compiled libraries (associate MSAFCore with the package's targets)
 install(
