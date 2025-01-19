@@ -26,12 +26,12 @@ Follows the [SVF Wiki](https://github.com/svf-tools/SVF/wiki/Setup-Guide#getting
 ```shell
 mkdir cmake-build-release
 cd cmake-build-release
-cmake -DLLVM_DIR=${LLVM_DIR} -DSVF_DIR=${SVF_DIR} .. 
+cmake -DLLVM_DIR=${LLVM_DIR} -DSVF_DIR=${SVF_DIR} -DZ3_DIR=${Z3_DIR} ..
 ```
 
 for example:
 ```shell
 mkdir cmake-build-release
 cd cmake-build-release
-cmake -DLLVM_DIR=/Users/liture/CLionProjects/SVF-Dev-Env/llvm-project-llvmorg-16.0.6/llvm/cmake-build-relwithdebinfo -DSVF_DIR=/Users/liture/CLionProjects/SVF-Dev-Env/SVF .. 
+cmake -DLLVM_DIR=/Users/liture/CLionProjects/SVF-Dev-Env/llvm-project-llvmorg-16.0.6/llvm/cmake-build-relwithdebinfo -DSVF_DIR=/Users/liture/CLionProjects/SVF-Dev-Env/SVF -DZ3_DIR=/Users/liture/CLionProjects/SVF-Dev-Env/z3/z3-4.8.8-x64-osx-10.14.6 .. 
 ```
