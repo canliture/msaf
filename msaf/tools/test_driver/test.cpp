@@ -51,41 +51,64 @@ protected:
     void processCall(const CallICFGNode *call) override {  }
 };
 
-int main(int argc, char **argv)
-{
+typedef FIFOWorkList<NodeID> WorkList;
+
+void getCallGraphSCCRevTopoOrder(SCCDetection<PTACallGraph*>* callGraphSCC, WorkList& worklist) {
+    NodeStack revTopoNodeStack = callGraphSCC->revTopoNodeStack();
+    while(!revTopoNodeStack.empty())
+    {
+        NodeID repNodeId = revTopoNodeStack.top();
+        revTopoNodeStack.pop();
+
+        for (auto callGraphNodeId : callGraphSCC->subNodes(repNodeId))
+        {
+            worklist.push(callGraphNodeId);
+        }
+    }
+}
+
+int main(int argc, char **argv) {
     std::vector<std::string> moduleNameVec;
     moduleNameVec = OptionBase::parseOptions(
-                        argc, argv, "Whole Program Points-to Analysis", "[options] <input-bitcode...>"
-                    );
+            argc, argv, "Whole Program Points-to Analysis", "[options] <input-bitcode...>"
+    );
 
-    if (Options::WriteAnder() == "ir_annotator")
-    {
+    if (Options::WriteAnder() == "ir_annotator") {
         LLVMModuleSet::preProcessBCs(moduleNameVec);
     }
 
-    SVFModule* svfModule = LLVMModuleSet::buildSVFModule(moduleNameVec);
+    SVFModule *svfModule = LLVMModuleSet::buildSVFModule(moduleNameVec);
 
     /// Build Program Assignment Graph (SVFIR)
     SVFIRBuilder builder(svfModule);
-    SVFIR* pag = builder.build();
+    SVFIR *pag = builder.build();
 
     /// Create Andersen's pointer analysis
-    Andersen* ander = AndersenWaveDiff::createAndersenWaveDiff(pag);
-
+    Andersen *ander = AndersenWaveDiff::createAndersenWaveDiff(pag);
 
     /// Call Graph
-    PTACallGraph* callgraph = ander->getCallGraph();
+    PTACallGraph *callgraph = ander->getCallGraph();
 
     /// ICFG
-    ICFG* icfg = pag->getICFG();
+    // ICFG* icfg = pag->getICFG();
 
     /// Value-Flow Graph (VFG)
-    VFG* vfg = new VFG(callgraph);
+    // VFG* vfg = new VFG(callgraph);
 
     /// Sparse value-flow graph (SVFG)
-    SVFGBuilder svfBuilder;
-    SVFG* svfg = svfBuilder.buildFullSVFG(ander);
+    /// SVFGBuilder svfBuilder;
+    /// SVFG* svfg = svfBuilder.buildFullSVFG(ander);
 
-    MyAnalysis modular_analysis;
-    printf("Hello World\n");
+    SCCDetection<PTACallGraph *> *callGraphSCC = new SCCDetection(callgraph);
+    callGraphSCC->find();
+
+    WorkList worklist;
+    getCallGraphSCCRevTopoOrder(callGraphSCC, worklist);
+    while (!worklist.empty())
+    {
+        NodeID callGraphNodeID = worklist.pop();
+        PTACallGraphNode *subCallGraphNode = callgraph->getCallGraphNode(callGraphNodeID);
+        const SVFFunction *fun = subCallGraphNode->getFunction();
+        std::cout << fun->getName() << std::endl;
+    }
 }
